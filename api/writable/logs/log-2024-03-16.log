@@ -1,0 +1,93 @@
+CRITICAL - 2024-03-16 00:12:22 --> ErrorException: Undefined variable $CI_ENVIRONMENT
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $CI_ENVIRONMENT', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:12:44 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:12:45 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:12:45 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:12:51 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:12:51 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:12:58 --> ErrorException: Array to string conversion
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:14:20 --> Error: Undefined constant "App\Controllers\CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 2 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:14:31 --> Error: Undefined constant "App\Controllers\CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 2 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:14:32 --> Error: Undefined constant "App\Controllers\CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 2 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:14:46 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2024-03-16 00:14:47 --> ErrorException: Undefined array key "CI_ENVIRONMENT"
+in APPPATH\Controllers\Home.php on line 21.
+ 1 APPPATH\Controllers\Home.php(21): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CI_ENVIRONMENT"', 'C:\\Users\\alefs\\Documents\\GitKraken\\sol-art-api\\app\\Controllers\\Home.php', 21)
+ 2 APPPATH\Controllers\Home.php(10): App\Controllers\Home->auth()
+ 3 SYSTEMPATH\CodeIgniter.php(941): App\Controllers\Home->index()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
