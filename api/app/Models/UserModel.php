@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class User extends Model
+class UserModel extends Model
 {
-    protected $table            = 't_user';
-    protected $primaryKey       = 'USER_ID';
+    protected $table            = 'SEA_USER';
+    protected $primaryKey       = 'USER_EMAIL';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

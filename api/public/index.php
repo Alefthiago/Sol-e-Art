@@ -1,4 +1,7 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: *");
 
 // Check PHP version.
 $minPhpVersion = '7.4'; // If you update this, don't forget to update `spark`.
@@ -44,7 +47,7 @@ require_once SYSTEMPATH . 'Config/DotEnv.php';
 (new CodeIgniter\Config\DotEnv(ROOTPATH))->load();
 
 // Define ENVIRONMENT
-if (! defined('ENVIRONMENT')) {
+if (!defined('ENVIRONMENT')) {
     define('ENVIRONMENT', env('CI_ENVIRONMENT', 'production'));
 }
 
