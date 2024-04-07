@@ -35,7 +35,7 @@ export default function Home() {
       <button onClick={fetchDataFromServer} disabled={loading} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}>
         {loading ? 'Carregando...' : 'Buscar Dados da API'}
       </button>
-      <h1>Resposta da API s2 </h1>
+      <h1>Resposta da API</h1>
       {apiData && <p>{JSON.stringify(apiData)}</p>}
     </main>
   );
