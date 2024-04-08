@@ -39,5 +39,4 @@ export default function Home() {
       {apiData && <p>{JSON.stringify(apiData)}</p>}
     </main>
   );
-  //milmeucommilteu
 }
