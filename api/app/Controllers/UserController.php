@@ -32,14 +32,14 @@ class UserController extends BaseController
                 'message' => 'error',
                 'errors' => $this->validator->getErrors()
             );
-            die(json_encode($json));
+            die(json_encode($json)); 
         }
         //  /REGRAS DE VALIDAÇÃO.  //
 
         $data = array(
             'USER_EMAIL'    => (string)$this->request->getPost('email'),
             'USER_PASS'     => (string)$this->request->getPost('password'),
-            // 'password'  => password_hash((string)$this->request->getPost('password'), PASSWORD_DEFAULT),
+            // 'password'  => password_hash((string)$this->request->getPost('password'), PASSWORD_DEFAULT), // --> hash = criptografia padrão
             // 'cpf'       => (string)$this->request->getPost('cpf'),
             // 'gender'    => (string)$this->request->getPost('gender'),
             //  DADOS DE ENDEREÇO.   //
@@ -66,5 +66,54 @@ class UserController extends BaseController
             );
         }
         die(json_encode($json));
+    }
+
+
+    public function edit()
+    {
+        // regra de edição
+        $rules = [
+            'name'      => 'required',
+            'email'     => 'required|valid_email',
+            'password'  => 'required',
+            'cpf'       => 'required',
+        ];
+        
+        $validated = $this->validate($rules);
+        
+        if (!$validated) {
+            $json = [
+                'message' => 'error',
+                'errors' => $this->validator->getErrors()
+            ];
+            die(json_encode($json)); // encode --> envia json, decode --> recebe json
+        } 
+        // regra de edição
+
+        $user_id = (int) $this->request->getPost('user_id'); // obtém o id do usuário que tá querendo editar inf da conta
+
+        // agora tem que verificar se esse caba existe no bd
+        $user_id = $this->user_model->find($user_id);
+        if (!$user_id) {
+            $json = [
+                'message' => 'error',
+                'data' => 'Usuário não encontrado'
+            ];
+            die(json_encode($json));
+        }
+
+        $data = [ // --> obter os dados enviados pelo form
+            'USER_NAME' => (string) $this->request->getPost('name'), 
+            'USER_EMAIL' => (string) $this->request->getPost('email'),
+            'USER_PASSWORD' => (string) $this->request->getPost('password'),
+            'USER_CPF' => (string) $this->request->getPost('cpf'),
+        ];
+
+        $this->user_model->update($user_id, $data); // --> atualizar as inf editada no bd
+            $json = [
+                'message' => 'sucess',
+                'data' => 'Usuário alterado com sucesso'
+            ];
+            die(json_encode($json));
     }
 }
