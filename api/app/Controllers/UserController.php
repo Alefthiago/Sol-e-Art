@@ -67,4 +67,5 @@ class UserController extends BaseController
         }
         die(json_encode($json));
     }
+    // julin linde
 }
