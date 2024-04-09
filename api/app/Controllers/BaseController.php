@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use \Firebase\JWT\JWT;
 
 /**
  * Class BaseController
@@ -27,6 +28,10 @@ abstract class BaseController extends Controller
      * @var CLIRequest|IncomingRequest
      */
     protected $request;
+
+    //  KEY PARA O JWT.  //
+    protected $key = "eogalo";
+    // /KEY PARA O JWT.  //
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -54,7 +59,6 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
-        $this->necessaryAuth();
     }
     
     public function unauthorized()
@@ -64,9 +68,16 @@ abstract class BaseController extends Controller
     }
 
     //  FUNCOES PARA AUTH.   //
-    public function necessaryAuth($necessary = false)
+    public function createJWT($data_user)
     {
-       
+        $payload = [
+            "iss" => "http://localhost:8080",
+            "aud" => "http://localhost:8080",
+            "data" => $data_user
+        ];
+
+        $jwt = JWT::encode($payload, $this->key, 'HS256');
+        return $jwt;
     }
     // /FUNCOES PARA AUTH.   //
 }

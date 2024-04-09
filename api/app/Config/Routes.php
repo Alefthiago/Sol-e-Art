@@ -11,6 +11,5 @@ use CodeIgniter\Router\RouteCollection;
 
 //  ROTA PARA CRUD DO USUARIO.  //
 $routes->match(['post', 'options'], '/userCreate', 'UserController::create');
-$routes->post('/getByEmail', 'UserController::getByEmail');
+$routes->match(['post', 'options'], '/userEdit', 'UserController::edit', ['filter' => 'auth']);
 // /ROTA PARA CRUD DO USUARIO.  //
-

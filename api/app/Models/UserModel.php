@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $table            = 'SEA_USER';
-    protected $primaryKey       = 'USER_EMAIL';
+    protected $primaryKey       = 'USR_ID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['USR_NAME', 'USR_EMAIL', 'USR_PASSWORD', 'USR_CPF', 'USR_GENDER', 'USR_ADDRESS_CEP', 'USR_ADDRESS_NUMBER', 'USR_ADDRESS_COMPLEMENT', 'USR_ADDRESS_STREET', 'USR_ADDRESS_NEIGHBORHOOD', 'USR_ADDRESS_CITY', 'USR_ADDRESS_STATE', 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
 
