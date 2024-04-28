@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import { Navbar } from "./components/navbar";
 
 export default function Home() {
   const [apiData, setApiData] = useState(null);
@@ -31,12 +32,17 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <button onClick={fetchDataFromServer} disabled={loading} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}>
-        {loading ? 'Carregando...' : 'Buscar Dados da API'}
-      </button>
-      <h1>da API</h1>
-      {apiData && <p>{JSON.stringify(apiData)}</p>}
+
+    <main>
+      <Navbar />
+
+      <div className="flex min-h-screen flex-col items-center justify-between">
+        <button onClick={fetchDataFromServer} disabled={loading} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}>
+          {loading ? 'Carregando...' : 'Buscar Dados da API'}
+        </button>
+        <h1 className="text-black">Resposta da API</h1>
+        {apiData && <p>{JSON.stringify(apiData)}</p>}
+      </div>
     </main>
   );
 }
