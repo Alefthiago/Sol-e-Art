@@ -16,7 +16,8 @@ const config: Config = {
       colors: {
         transparent: 'transparent',
         blackcontent: '#1F1F1F',
-        ikaosdk:''
+        pinks: '#F6587A',
+        whitegray: '#D9D9D9',
         
       },
     },

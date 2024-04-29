@@ -36,11 +36,11 @@ export default function Home() {
     <main>
       <Navbar />
 
-      <div className="flex min-h-screen flex-col items-center justify-between">
+      <div className="flex h-full flex-col items-center pt-40 gap-12">
         <button onClick={fetchDataFromServer} disabled={loading} className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}>
           {loading ? 'Carregando...' : 'Buscar Dados da API'}
         </button>
-        <h1 className="text-black">Resposta da API</h1>
+        <h1 className="text-white">Resposta da API</h1>
         {apiData && <p>{JSON.stringify(apiData)}</p>}
       </div>
     </main>
