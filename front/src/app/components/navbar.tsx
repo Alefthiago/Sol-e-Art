@@ -14,7 +14,7 @@ export const Navbar = () => {
     return (
         <main>
             {/* Inicio> Modelo Mobile (sidebar)*/}
-            <div className='Nav-Mob fixed top-0 z-50 w-full'>
+            <div className='Nav-Mob w-full fixed top-0 z-50'>
                 <div className='w-full h-20 bg-blackcontent items-center hidden max-sm:flex justify-between'>
                     <div className='Hamburguer-Icon mx-6'>
                         <svg onClick={active} className='' width="26" height="20" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +82,7 @@ export const Navbar = () => {
             {/* Fim> Modelo Mobile (sidebar)*/}
 
             {/* Inicio> Modelo Tablet (navbar)*/}
-            <div className='Tablet-nav'>
+            <div className='Tablet-nav hidden sm:inline'>
                 <div className='bg-blackcontent h-20 w-full flex justify-between items-center'>
                     <div>
                         <svg className='ml-12' width="121" height="49" viewBox="0 0 121 49" fill="none" xmlns="http://www.w3.org/2000/svg">
