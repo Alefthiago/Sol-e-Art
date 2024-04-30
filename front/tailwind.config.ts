@@ -2,10 +2,14 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
+    "./node_modules/flowbite-react/lib/**/*.js",
+    "./pages/**/*.{ts,tsx}",
+    "./public/**/*.html",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  
   theme: {
     extend: {
       backgroundImage: {
@@ -18,11 +22,12 @@ const config: Config = {
         blackcontent: '#1F1F1F',
         pinks: '#F6587A',
         whitegray: '#D9D9D9',
-        
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 
 };
 export default config;
