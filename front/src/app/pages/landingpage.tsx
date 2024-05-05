@@ -1,8 +1,9 @@
 'use client'
 import 'animate.css';
+import React from 'react'
 import Carrosel from '../components/carousel';
 import Sizebutton from '../components/sizebutton';
-import React from 'react'
+import { Know } from '../components/getknow';
 
 const Landing = () => {
 
@@ -12,6 +13,7 @@ const Landing = () => {
         <>
             <Carrosel />
 
+            {/* Inicio> icons de tipos de roupas*/}
             <div className='flex justify-center items-center gap-1 md:gap-28 mt-12'>
                 <div className='hover:scale-110 duration-300'>
                     <svg width="100" height="100" viewBox="0 0 89 89" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,8 +57,9 @@ const Landing = () => {
                     <p className='text-center font-light uppercase text-blackcontent'>BERMUDA</p>
                 </div>
             </div>
-
+            {/* Fim> icons de tipos de roupas*/}
             <Sizebutton />
+            <Know/>
         </>
     )
 
