@@ -8,7 +8,7 @@ const Sizebutton = () => {
 
     return (
         <>
-            <div className='flex justify-center items-center my-12'>
+            <div className='flex justify-center items-center my-20'>
                 <a href="">
                     <div className='px-16 py-4 bg-graycolor hover:bg-pinks rounded-3xl hover:scale-105 duration-300'>
                         <svg width="204" height="60" viewBox="0 0 204 50" fill="none" xmlns="http://www.w3.org/2000/svg">
