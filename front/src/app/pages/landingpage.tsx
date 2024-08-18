@@ -5,6 +5,7 @@ import Carrosel from '../components/carousel';
 import Sizebutton from '../components/sizebutton';
 import { Know } from '../components/getknow';
 import { Cardsell } from '../components/productcard';
+import { Footer } from '../components/footer';
 
 const Landing = () => {
 
@@ -120,8 +121,20 @@ const Landing = () => {
             </div>
             {/* Fim> envio/preço/desconto */}
 
+            {/* Inicio> look use*/}
 
-        
+            <div className='flex justify-center'>
+                <div className='flex flex-col'>
+                    <h1 className='text-black font-bold text-3xl text-center m-6'>USE LOOK</h1>
+                    <div className=''>
+                        <img src="./images/use-look.png" alt="" />
+                    </div>
+                </div>
+            </div>
+            {/* Fim> look use */}
+
+            <Footer/>
+
         </>
     )
 

@@ -3,8 +3,9 @@ import React from 'react'
 export const Know = () => {
     return (
         <>
-            <div className='flex flex-col text-center text-blackcontent font-bold'>
-                Conheça-nos
+            <div className='flex flex-col text-center text-blackcontent font-bold mt-6'>
+                <p className='text-blackcontent'>Conheça-nos
+                </p>
                 <div className='flex justify-center items-center gap-6 mt-4'>
                     <a href="">
                         <svg className='hover:scale-125 duration-300' width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
