@@ -6,10 +6,12 @@ import Sizebutton from '../components/sizebutton';
 import { Know } from '../components/getknow';
 import { Cardsell } from '../components/productcard';
 import { Footer } from '../components/footer';
+import { useRouter } from 'next/router';
 
 const Landing = () => {
 
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+
 
     return (
         <>
@@ -133,7 +135,9 @@ const Landing = () => {
             </div>
             {/* Fim> look use */}
 
-            <Footer/>
+
+
+            <Footer />
 
         </>
     )
