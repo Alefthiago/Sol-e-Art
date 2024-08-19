@@ -10,7 +10,7 @@ import { Navbar } from '../components/navbar';
 
 const Landing = () => {
 
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"async></script>
 
 
     return (
