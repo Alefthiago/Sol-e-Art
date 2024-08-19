@@ -1,13 +1,10 @@
-import Landing from "./pages/landingpage";
-import { Navbar } from "./components/navbar";
+import Landing from "./landingpage/page";
 
 export default function Home() {
 
   return (
-
-    <main>
-      <Navbar/>
+    <>
       <Landing/>
-    </main>
+    </>
   );
 }

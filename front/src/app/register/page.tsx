@@ -20,7 +20,6 @@ const Register: React.FC = () => {
     estado: ""
   });
 
-  // Definindo o tipo do parâmetro `e`
   const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const cepValue = e.target.value;
     setCep(cepValue);
@@ -54,7 +53,7 @@ const Register: React.FC = () => {
       <Navbar />
       <div className='flex justify-center mt-12'>
         <div className='border-4 border-pinks rounded-tl-[90px] rounded-tr-md rounded-bl-md rounded-br-[90px] p-6 max-sm:w-[400px] w-[640px] max-sm:border-none'>
-          <p className='text-blackcontent text-center font-semibold text-xl my-20'>Cadastre-se</p>
+          <p className='text-blackcontent text-center font-semibold text-xl my-20 max-sm:my-12 '>Cadastre-se</p>
           <div className='flex flex-col items-center'>
 
             {/* formulario de cadastro*/}
