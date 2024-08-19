@@ -152,7 +152,7 @@ const Register: React.FC = () => {
               </div>
             </form>
 
-            <a href='/login' className='text-blackcontent underline hover:text-gray-400 mb-12'>Já tem uma conta?</a>
+            <a href='/screenlogin' className='text-blackcontent underline hover:text-gray-400 mb-12'>Já tem uma conta?</a>
 
           </div>
         </div>
