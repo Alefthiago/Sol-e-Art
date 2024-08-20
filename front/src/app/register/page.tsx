@@ -20,22 +20,55 @@ const Register: React.FC = () => {
     estado: ""
   });
 
-  const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cepValue = e.target.value;
-    setCep(cepValue);
+  const [formData, setFormData] = useState({
+    nome: "",
+    email: "",
+    cpf: "",
+    password: "",
+    // passwordConfirm: "",
+    cep: "",
+    rua: "",
+    bairro: "",
+    cidade: "",
+    uf: "",
+    numero: ""
+  });
 
-    const cleanCep = cepValue.replace(/\D/g, "");
+  const handleChangeFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { name, value } = event.target;
+
+    let isNumericField = ['cpf', 'numero'].includes(name);
+    let newValue = isNumericField ? value.replace(/\D/g, '') : value;
+
+    setFormData((prevState: FormData) => ({
+      ...prevState,
+      [name]: newValue
+    }));
+  };
+
+  const handleCepChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    let isNumericField = ['cep'].includes('cep');
+    let cepValue = isNumericField ? value.replace(/\D/g, '') : value;
+    // setCep(cepValue);
+
+    setFormData({ ...formData, cep: cepValue });
+
+    let cleanCep = cepValue.replace(/\D/g, "");
+    // console.log(cleanCep);
     if (cleanCep.length === 8) {
       try {
-        const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
-        const data = await response.json();
+        let response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+        let data = await response.json();
 
         if (!data.erro) {
-          setAddress({
+          setFormData({
+            ...formData,
+            cep: cleanCep,
             rua: data.logradouro,
             bairro: data.bairro,
             cidade: data.localidade,
-            estado: data.uf
+            uf: data.uf
           });
         } else {
           alert("CEP não encontrado!");
@@ -47,6 +80,26 @@ const Register: React.FC = () => {
     }
   };
 
+  //    submit form.    //  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    let response = await fetch("http://localhost:8000/userCreate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao cadastrar usuário:", error.message);
+      });
+  };
+  //   /submit form.    //  
 
   return (
     <div>
@@ -57,7 +110,7 @@ const Register: React.FC = () => {
           <div className='flex flex-col items-center'>
 
             {/* formulario de cadastro*/}
-            <form name="cadastro" >
+            <form name="cadastro" id="form-cadastro" onSubmit={handleSubmit}>
               <fieldset className='flex gap-6 max-sm:flex-col'>
 
                 <div className='mt-6'>
@@ -66,7 +119,7 @@ const Register: React.FC = () => {
                     <svg className='max-sm:hidden' height="25" width="25" fill="none" viewBox="0 0 20 19" xmlns="http://www.w3.org/2000/svg">
                       <path d="M10 9.05331C11.2155 9.05331 12.3813 8.57639 13.2408 7.72748C14.1003 6.87857 14.5832 5.7272 14.5832 4.52665C14.5832 3.32611 14.1003 2.17474 13.2408 1.32583C12.3813 0.476914 11.2155 0 10 0C8.78446 0 7.61871 0.476914 6.7592 1.32583C5.89969 2.17474 5.41682 3.32611 5.41682 4.52665C5.41682 5.7272 5.89969 6.87857 6.7592 7.72748C7.61871 8.57639 8.78446 9.05331 10 9.05331ZM10 11.0421C3.90636 11.0421 0 14.3634 0 15.9804V19H20V15.9804C20 14.0249 16.3018 11.0421 10 11.0421Z" fill="#F6587A" />
                     </svg>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent  bg-whitegray my-2 focus-within:ring-pinks' type="text" id='nome' placeholder='Nome' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent  bg-whitegray my-2 focus-within:ring-pinks' type="text" id='nome' name='nome' placeholder='Nome' value={formData.nome} onChange={handleChangeFormData} />
                   </div>
 
                   {/* email*/}
@@ -75,7 +128,7 @@ const Register: React.FC = () => {
                       <path d="M2.08838 3.62335L8.83651 8.68439C9.99751 9.55511 11.5938 9.55511 12.7548 8.68439L19.5029 3.62329" stroke="#F6587A" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
                       <path d="M18.4145 1.44641H3.17682C1.97459 1.44641 1 2.421 1 3.62323V14.5073C1 15.7095 1.97459 16.6841 3.17682 16.6841H18.4145C19.6167 16.6841 20.5913 15.7095 20.5913 14.5073V3.62323C20.5913 2.421 19.6167 1.44641 18.4145 1.44641Z" stroke="#F6587A" strokeLinecap="round" strokeWidth="2" />
                     </svg>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="email" id='email' placeholder='Email' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="email" id='email' name='email' placeholder='Email' value={formData.email} onChange={handleChangeFormData} />
                   </div>
 
                   {/* CPF */}
@@ -86,7 +139,7 @@ const Register: React.FC = () => {
                       <path d="M12 9C12 9.5523 11.5523 10 11 10C10.4477 10 10 9.5523 10 9C10 8.4477 10.4477 8 11 8C11.5523 8 12 8.4477 12 9Z" fill="#F6587A" />
                       <path d="M16 9C16 9.5523 15.5523 10 15 10C14.4477 10 14 9.5523 14 9C14 8.4477 14.4477 8 15 8C15.5523 8 16 8.4477 16 9Z" fill="#F6587A" />
                     </svg>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='cpf' placeholder='CPF' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='cpf' name='cpf' placeholder='CPF' value={formData.cpf} onChange={handleChangeFormData} />
                   </div>
 
                   {/* Senha */}
@@ -104,7 +157,7 @@ const Register: React.FC = () => {
                       )}
                     </button>
 
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type={showPassword ? "text" : "password"} id='password' placeholder='Digite uma senha' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type={showPassword ? "text" : "password"} id='password' name='password' placeholder='Digite uma senha' value={formData.password} onChange={handleChangeFormData} />
 
                   </div>
                 </div>
@@ -115,40 +168,39 @@ const Register: React.FC = () => {
                   {/* CEP */}
                   <div className='flex justify-center items-center gap-2'>
 
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='endereco' placeholder='CEP'
-                      value={cep} onChange={handleCepChange} />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='cep' name='cep' placeholder='CEP'
+                      value={formData.cep} onChange={handleCepChange} />
                   </div>
                   {/* Rua*/}
                   <div className='flex justify-center items-center gap-2'>
-
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='rua' placeholder='Rua'
-                      value={address.rua} />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='rua' name='rua' placeholder='Rua'
+                      value={formData.rua} onChange={handleChangeFormData} />
                   </div>
 
                   {/* Bairro*/}
                   <div className='flex justify-center items-center gap-2'>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='bairro' placeholder='Bairro'
-                      value={address.bairro} />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='bairro' name='bairro' placeholder='Bairro'
+                      value={formData.bairro} onChange={handleChangeFormData} />
                   </div>
 
                   {/* Cidade*/}
                   <div className='flex justify-center items-center gap-2'>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='cidade' placeholder='Cidade'
-                      value={address.cidade} />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='cidade' name='cidade' placeholder='Cidade'
+                      value={formData.cidade} onChange={handleChangeFormData} />
                   </div>
 
                   {/* Estado - Numero*/}
                   <div className='flex items-center gap-1 justify-center'>
-                    <input className='focus:border-pinks border-none rounded-xl w-[119.5px] text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='estado'
-                      value={address.estado} readOnly placeholder="UF" />
-                    <input className='focus:border-pinks border-none rounded-xl w-[119.5px] text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='numero' placeholder='Número' />
+                    <input className='focus:border-pinks border-none rounded-xl w-[119.5px] text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='uf' name='uf'
+                      value={formData.uf} readOnly placeholder="UF" onChange={handleChangeFormData} />
+                    <input className='focus:border-pinks border-none rounded-xl w-[119.5px] text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type="text" id='numero' name='numero' placeholder='Número' value={formData.numero} onChange={handleChangeFormData} />
                   </div>
                 </div>
                 {/* Cadastrar */}
 
               </fieldset>
               <div className='flex justify-center my-10'>
-                <input value="Cadastrar" type="submit" className="py-3 px-12 bg-pinks text-blackcontent font-bold rounded-3xl cursor-pointer hover:bg-pink-300 " />
+                <input value="Cadastrar" type="submit" className="py-3 px-12 bg-pinks text-blackcontent font-bold rounded-3xl cursor-pointer hover:bg-pink-300" />
               </div>
             </form>
 

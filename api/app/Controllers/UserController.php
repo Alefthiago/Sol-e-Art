@@ -21,10 +21,15 @@ class UserController extends BaseController
     {
         //  REGRAS DE VALIDAÇÃO.  //
         $rules = [
-            'name'      => 'required',
+            'nome'      => 'required',
             'email'     => 'required|valid_email',
             'password'  => 'required',
-            'cpf'       => 'required',
+            // 'cpf'       => 'required',
+            // 'cep'       => 'required',
+            // 'numero'    => 'required',
+            // 'rua'       => 'required',
+            // 'bairro'    => 'required',
+            // 'uf'        => 'required',
         ];
         //  /REGRAS DE VALIDAÇÃO.  //
 
@@ -33,17 +38,20 @@ class UserController extends BaseController
             'name'      => ['required' => 'O campo nome é obrigatório.'],
             'email'     => ['required' => 'O campo email é obrigatório.', 'valid_email' => 'O email informado é inválido.'],
             'password'  => ['required' => 'O campo senha é obrigatório.'],
-            'cpf'       => ['required' => 'O campo cpf é obrigatório.'],
+            // 'cpf'       => ['required' => 'O campo cpf é obrigatório.'],
         ];
         //  /MENSAGENS DE ERRO.  //
 
         $validated = $this->validate($rules, $msg);
 
         if (!$validated) {
+            http_response_code(422);
+
             $json = array(
                 'message' => 'error',
                 'errors' => $this->validator->getErrors()
             );
+            header('Content-Type: application/json');
             die(json_encode($json));
         }
 
