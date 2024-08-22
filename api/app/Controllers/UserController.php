@@ -33,17 +33,19 @@ class UserController extends BaseController
         // die(json_encode(password_verify($password, $user['USR_PASSWORD'])));
 
         if (!$user) {
+            http_response_code(422);
             $json = array(
-                'message' => 'error',
-                'errors' => array('Usuário não encontrado.')
+                'type' => 'error',
+                'message' => array('Usuário não encontrado.')
             );
             die(json_encode($json));
         }
 
         if (!password_verify($password, $user['USR_PASSWORD'])) {
+            http_response_code(422);
             $json = array(
-                'message' => 'error',
-                'errors' => array('Senha inválida.')
+                'type' => 'error',
+                'message' => array('Senha inválida.')
             );
             die(json_encode($json));
         }
@@ -51,7 +53,7 @@ class UserController extends BaseController
         $jwt = parent::createJWT($email);
 
         $json = array(
-            'message' => 'success',
+            'type' => 'success',
             'data' => array(
                 'success' => 'Login efetuado com sucesso.'
             ),
@@ -89,11 +91,11 @@ class UserController extends BaseController
         $validated = $this->validate($rules, $msg);
 
         if (!$validated) {
-            // http_response_code(422);
+            http_response_code(422);
 
             $json = array(
-                'message' => 'error',
-                'errors' => $this->validator->getErrors()
+                'type' => 'error',
+                'message' => $this->validator->getErrors()
             );
             header('Content-Type: application/json');
             die(json_encode($json));
@@ -137,12 +139,13 @@ class UserController extends BaseController
             $created = $this->user_model->insert($data);
             $jwt = parent::createJWT($this->request->getPost('email'));
             $created ? $json = array(
-                'message' => 'success',
+                'type' => 'success',
                 // 'token' => $jwt
             ) :
+                http_response_code(422);
                 $json = array(
-                    'message' => 'error',
-                    'errors' => 'Erro ao criar conta.'
+                    'type' => 'error',
+                    'message' => 'Erro ao criar conta.'
                 );
 
             die(json_encode($json));
@@ -152,24 +155,24 @@ class UserController extends BaseController
 
             if (strpos($message, 'USR_EMAIL')) {
                 $json = array(
-                    'message' => 'error',
-                    'errors' => array('Email já cadastrado.')
+                    'type' => 'error',
+                    'message' => array('Email já cadastrado.')
                 );
             } else if (strpos($message, 'USR_CPF')) {
                 $json = array(
-                    'message' => 'error',
-                    'errors' => array('CPF já cadastrado.')
+                    'type' => 'error',
+                    'message' => array('CPF já cadastrado.')
                 );
             } else {
                 $json = array(
-                    'message' => 'error',
-                    'errors' => $e->getMessage()
+                    'type' => 'error',
+                    'message' => $e->getMessage()
                 );
             }
 
             die(json_encode($json));
         } catch (\Exception $e) {
-            $json = array('message' => 'error', 'errors' => $e->getMessage());
+            $json = array('type' => 'error', 'message' => $e->getMessage());
             die(json_encode($json));
         }
     }
@@ -180,12 +183,12 @@ class UserController extends BaseController
         $user   = $this->user_model->where('USR_EMAIL', $email)->first();
         if ($user) {
             $json = array(
-                'message' => 'success',
+                'type' => 'success',
                 'data' => $user
             );
         } else {
             $json = array(
-                'message' => 'error',
+                'type' => 'error',
                 'data' => 'Usuário não encontrado'
             );
         }
@@ -207,8 +210,8 @@ class UserController extends BaseController
 
         if (!$validated) {
             $json = [
-                'message' => 'error',
-                'errors' => $this->validator->getErrors()
+                'type' => 'error',
+                'message' => $this->validator->getErrors()
             ];
             die(json_encode($json)); // encode --> envia json, decode --> recebe json
         }
@@ -220,7 +223,7 @@ class UserController extends BaseController
         $user_id = $this->user_model->find($user_id);
         if (!$user_id) {
             $json = [
-                'message' => 'error',
+                'type' => 'error',
                 'data' => 'Usuário não encontrado'
             ];
             die(json_encode($json));
@@ -235,7 +238,7 @@ class UserController extends BaseController
 
         $this->user_model->update($user_id, $data); // --> atualizar as inf editada no bd
         $json = [
-            'message' => 'sucess',
+            'type' => 'sucess',
             'data' => 'Usuário alterado com sucesso'
         ];
         die(json_encode($json));

@@ -106,8 +106,8 @@ const Register: React.FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.message == `error`) {
-          let newErrors = Object.keys(data.errors).map((key) => data.errors[key]);
+        if (data.type == `error`) {
+          let newErrors = Object.keys(data.message).map((key) => data.message[key]);
           setErrors((prevState: any) => [...prevState, ...newErrors]);
         } else {
           // localStorage.setItem("token", data.token);
