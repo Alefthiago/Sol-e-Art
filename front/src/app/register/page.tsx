@@ -12,13 +12,13 @@ const Register: React.FC = () => {
     setShowPassword(!showPassword);
   };
 
-  const [cep, setCep] = useState("");
-  const [address, setAddress] = useState({
-    rua: "",
-    bairro: "",
-    cidade: "",
-    estado: ""
-  });
+  // const [cep, setCep] = useState("");
+  // const [address, setAddress] = useState({
+  //   rua: "",
+  //   bairro: "",
+  //   cidade: "",
+  //   estado: ""
+  // });
 
   const [formData, setFormData] = useState({
     nome: "",
@@ -33,6 +33,10 @@ const Register: React.FC = () => {
     uf: "",
     numero: ""
   });
+
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [textButtonSubmit, setTextButtonSubmit] = useState("Cadastrar");
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleChangeFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
@@ -83,20 +87,40 @@ const Register: React.FC = () => {
   //    submit form.    //  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    let response = await fetch("http://localhost:8000/userCreate", {
+    setIsDisabled(true);
+    setTextButtonSubmit("Cadastrando...");
+    setErrors([]);
+
+    let formDataObj = new FormData();
+
+    for (const key in formData) {
+      formDataObj.append(key, formData[key]);
+    }
+
+    fetch("http://localhost:8000/userCreate", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
+      body: formDataObj,
+      // headers: {
+      //   "Content-Type": "application/json",
+      // }
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        if (data.message == `error`) {
+          let newErrors = Object.keys(data.errors).map((key) => data.errors[key]);
+          setErrors((prevState: any) => [...prevState, ...newErrors]);
+        } else {
+          // localStorage.setItem("token", data.token);
+          window.location.href = "/screenlogin";
+        }
       })
       .catch((error) => {
-        console.error("Erro ao cadastrar usuário:", error.message);
+        setErrors((prevState: any) => [...prevState, "Erro ao cadastrar tente novamente mais tarde."]);
+        console.error("Erro:", error);
+      })
+      .finally(() => {
+        setIsDisabled(false);
+        setTextButtonSubmit("Cadastrar");
       });
   };
   //   /submit form.    //  
@@ -107,7 +131,27 @@ const Register: React.FC = () => {
       <div className='flex justify-center mt-12'>
         <div className='border-4 border-pinks rounded-tl-[90px] rounded-tr-md rounded-bl-md rounded-br-[90px] p-6 max-sm:w-[400px] w-[640px] max-sm:border-none'>
           <p className='text-blackcontent text-center font-semibold text-xl my-20 max-sm:my-12 '>Cadastre-se</p>
+
           <div className='flex flex-col items-center'>
+
+            <div className={`w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md ${errors.length > 0 ? 'flex' : 'hidden'}`}>
+              <div className="flex items-center justify-center w-12 bg-red-500">
+                <svg className="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
+                </svg>
+              </div>
+
+              <div className="px-4 py-2 -mx-3">
+                <div className="mx-3">
+                  <span className="font-semibold text-red-500">Error</span>
+                  {errors.map((error: string, index: number) => (
+                    <p key={index} className="text-sm text-gray-600">
+                      {error}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* formulario de cadastro*/}
             <form name="cadastro" id="form-cadastro" onSubmit={handleSubmit}>
@@ -199,8 +243,10 @@ const Register: React.FC = () => {
                 {/* Cadastrar */}
 
               </fieldset>
+
               <div className='flex justify-center my-10'>
-                <input value="Cadastrar" type="submit" className="py-3 px-12 bg-pinks text-blackcontent font-bold rounded-3xl cursor-pointer hover:bg-pink-300" />
+                <input value={textButtonSubmit} type="submit" disabled={isDisabled} className={`py-3 px-12 bg-pinks text-blackcontent font-bold rounded-3xl cursor-pointer hover:bg-pink-300 ${isDisabled ? 'cursor-wait' : 'cursor-pointer'}`} />
+                {/* <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" /> */}
               </div>
             </form>
 
