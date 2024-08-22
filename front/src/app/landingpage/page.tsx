@@ -12,7 +12,6 @@ const Landing = () => {
 
     <script src="../path/to/flowbite/dist/flowbite.min.js"async></script>
 
-
     return (
         <>
             <Navbar />
@@ -135,8 +134,6 @@ const Landing = () => {
                 </div>
             </div>
             {/* Fim> look use */}
-
-
 
             <Footer />
 

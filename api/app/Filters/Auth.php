@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
@@ -10,62 +9,47 @@ use Firebase\JWT\KEY;
 
 class Auth implements FilterInterface
 {
-    /**
-     * Do whatever processing this filter needs to do.
-     * By default it should not return anything during
-     * normal execution. However, when an abnormal state
-     * is found, it should return an instance of
-     * CodeIgniter\HTTP\Response. If it does, script
-     * execution will end and that Response will be
-     * sent back to the client, allowing for error pages,
-     * redirects, etc.
-     *
-     * @param RequestInterface $request
-     * @param array|null       $arguments
-     *
-     * @return RequestInterface|ResponseInterface|string|void
-     */
+    protected $key;
 
-    //  KEY PARA O JWT.  //
-    protected $key = "eogalo";
-    // /KEY PARA O JWT.  //
+    public function __construct()
+    {
+        // Idealmente, carregue a chave de um arquivo de configuração ou variável de ambiente
+        $this->key = getenv('JWT_SECRET') ?: 'eogalo';
+    }
 
-    //  MÉTODO PARA VALIDAR O TOKEN.  //
     public function before(RequestInterface $request, $arguments = null)
     {
-        $jwt = $request->getServer('HTTP_AUTHORIZATION');
-        if (!$jwt) {
-            http_response_code(401);
-            die(json_encode(array(
-                'msg' => 'Token não informado.'
-            )));
+        $authHeader = $request->getServer('HTTP_AUTHORIZATION');
+
+        if (!$authHeader) {
+            return $this->unauthorized('Token não informado.');
         }
-        
+
+        // Extrai o token JWT do cabeçalho "Authorization: Bearer <token>"
+        $token = null;
+        if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+            $token = $matches[1];
+        }
+
+        if (!$token) {
+            return $this->unauthorized('Token não informado ou malformado.');
+        }
+
         try {
-            JWT::decode($jwt, new KEY($this->key, 'HS256'));
+            JWT::decode($token, new KEY($this->key, 'HS256'));
         } catch (\Exception $e) {
-            http_response_code(401);
-            die(json_encode(array(
-                'msg' => 'Token inválido.'
-            )));
+            return $this->unauthorized('Token inválido.');
         }
     }
-    //  /MÉTODO PARA VALIDAR O TOKEN.  //
 
-    /**
-     * Allows After filters to inspect and modify the response
-     * object as needed. This method does not allow any way
-     * to stop execution of other after filters, short of
-     * throwing an Exception or Error.
-     *
-     * @param RequestInterface  $request
-     * @param ResponseInterface $response
-     * @param array|null        $arguments
-     *
-     * @return ResponseInterface|void
-     */
+    private function unauthorized($message)
+    {
+        http_response_code(401);
+        die(json_encode(['msg' => $message]));
+    }
+
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        //
+        // Lógica para executar após a execução da rota
     }
 }

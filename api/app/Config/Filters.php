@@ -71,5 +71,7 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        'auth' => ['before' => ['private/*', 'dashboard/*']], // Aplica o filtro 'auth' antes das rotas que começam com 'private/' e 'dashboard/'
+    ];
 }
