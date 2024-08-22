@@ -138,16 +138,10 @@ class UserController extends BaseController
         try {
             $created = $this->user_model->insert($data);
             $jwt = parent::createJWT($this->request->getPost('email'));
-            $created ? $json = array(
+            $json = array(
                 'type' => 'success',
                 // 'token' => $jwt
-            ) :
-                http_response_code(422);
-                $json = array(
-                    'type' => 'error',
-                    'message' => 'Erro ao criar conta.'
-                );
-
+            );
             die(json_encode($json));
         } catch (DatabaseException $e) {
             http_response_code(422);
