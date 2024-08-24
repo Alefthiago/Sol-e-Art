@@ -4,7 +4,7 @@ import React from 'react'
 import Carrosel from '../components/carousel';
 import Sizebutton from '../components/sizebutton';
 import { Know } from '../components/getknow';
-import { Cardsell } from '../components/productcard';
+import Cardsell from '../components/productcard';
 import { Footer } from '../components/footer';
 import { Navbar } from '../components/navbar';
 
@@ -68,7 +68,7 @@ const Landing = () => {
             {/* Inicio> grid de produtos e botão de mostrar mais produtos*/}
             <div className='flex justify-center items-center flex-col gap-12'>
                 <div className="grid max-sm:gap-1 sm:grid-cols-2 max-md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center max-w-5xl mt-12">
-                    <Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell /><Cardsell />
+                  
                 </div>
                 <div className=''>
                     <a href=""> <button className='p-4 bg-pinks w-[250px] text-blackcontent rounded-2xl font-bold hover:scale-105 duration-300 hover:shadow-2xl hover:bg-pink-300'>Veja mais produtos...</button></a>

@@ -1,30 +1,32 @@
-import React from 'react'
+import { FC } from 'react';
+import { Product } from '../types/product';
 
-export const Cardsell = () => {
-  return (
-    <>
-      <a href="">
-        <div className='border-2 border-gray-100 rounded-xl w-[190px] h-[300px] max-w-[190px] hover:scale-105 hover:shadow-2xl duration-300'>
-          <div className='text-graycolor text-center'>
-            <div className='h-[170px] flex justify-center'>
-              <img className='h-[160px]' src="https://down-br.img.susercontent.com/file/d8bbd21a1ecad8eebc57c685fc0c4cf3" alt="" />
-            </div>
-            <p className=' font-light'>Biquíni Top Havaianas</p>
-            <p className='my-2 font-semibold'>R$39,90</p>
-            <div className='flex justify-center'>
-              <svg width="50" height="28" viewBox="0 0 76 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20.8548 20.4925C20.3821 20.4936 19.9139 20.401 19.4772 20.2202C19.0405 20.0394 18.6439 19.7739 18.3103 19.439L14.6353 15.764C14.5052 15.6405 14.3326 15.5715 14.1531 15.5715C13.9737 15.5715 13.8011 15.6405 13.671 15.764L9.98201 19.453C9.64853 19.7881 9.25196 20.0537 8.81521 20.2345C8.37847 20.4153 7.91021 20.5078 7.43751 20.5065H6.71301L11.368 25.1615C12.8205 26.614 15.1778 26.614 16.6303 25.1615L21.2975 20.4925H20.8548ZM7.43751 7.49355C8.40001 7.49355 9.30301 7.86804 9.98201 8.54704L13.671 12.236C13.7344 12.2995 13.8097 12.3499 13.8926 12.3843C13.9754 12.4187 14.0643 12.4363 14.154 12.4363C14.2437 12.4363 14.3326 12.4187 14.4155 12.3843C14.4983 12.3499 14.5736 12.2995 14.637 12.236L18.312 8.56105C18.6453 8.22624 19.0416 7.96076 19.478 7.77994C19.9144 7.59912 20.3824 7.50654 20.8548 7.50755H21.2975L16.6303 2.8403C15.9323 2.14279 14.9859 1.75098 13.9991 1.75098C13.0124 1.75098 12.066 2.14279 11.368 2.8403L6.71301 7.4953L7.43751 7.49355Z" fill="#2C2C2C" />
-                <path d="M25.1597 11.368L22.3387 8.54704C22.2754 8.57304 22.2077 8.58671 22.1392 8.58729H20.8565C20.1932 8.58729 19.544 8.85679 19.0767 9.32579L15.4017 13.0008C15.2383 13.1651 15.044 13.2955 14.83 13.3844C14.616 13.4734 14.3866 13.5192 14.1549 13.5192C13.9231 13.5192 13.6937 13.4734 13.4797 13.3844C13.2657 13.2955 13.0714 13.1651 12.908 13.0008L9.21898 9.31004C8.74569 8.83869 8.10544 8.57328 7.43748 8.57154H5.86248C5.79719 8.57102 5.73254 8.55857 5.67173 8.53479L2.84023 11.368C1.38773 12.8205 1.38773 15.1778 2.84023 16.632L5.67173 19.4635C5.73187 19.4393 5.79591 19.4263 5.86073 19.425H7.43748C8.10248 19.425 8.74998 19.1573 9.21898 18.6883L12.9062 14.9975C13.2427 14.6772 13.6894 14.4985 14.154 14.4985C14.6185 14.4985 15.0653 14.6772 15.4017 14.9975L19.0767 18.6725C19.544 19.1415 20.1932 19.4093 20.8565 19.4093H22.1392C22.2092 19.4093 22.2775 19.4268 22.3387 19.4513L25.1597 16.6303C26.6122 15.1778 26.6122 12.8205 25.1597 11.368Z" fill="#2C2C2C" />
-                <path d="M71.1538 5H51.7692C50.2398 5 49 6.23983 49 7.76923V20.2308C49 21.7602 50.2398 23 51.7692 23H71.1538C72.6833 23 73.9231 21.7602 73.9231 20.2308V7.76923C73.9231 6.23983 72.6833 5 71.1538 5Z" stroke="#2C2C2C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M49 10.5385H73.2308" stroke="#2C2C2C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M54.5385 17.4615H57.3077" stroke="#2C2C2C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <p className=' mt-2 text-xs font-light'>Pronta entrega</p>
-          </div>
-        </div>
-      </a >
-
-    </>
-  )
+interface Props {
+  products: Product[];
 }
+
+const CardSell: FC<Props> = ({ products }) => {
+  return (
+    <div>
+      <h1>Produtos de Moda Praia</h1>
+      <div className="products-grid">
+        {products.map((product) => (
+          <a
+            href={product.permalink}
+            key={product.id}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="product-card">
+              <img src={product.thumbnail} alt={product.title} />
+              <h2>{product.title}</h2>
+              <p>Preço: R$ {product.price}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default CardSell;
