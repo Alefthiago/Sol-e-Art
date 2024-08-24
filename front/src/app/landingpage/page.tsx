@@ -1,16 +1,46 @@
-'use client'
+
 import 'animate.css';
 import React from 'react'
+import { FC } from 'react';
+import { fetchProducts } from '../../../lib/mercadoLibreAPI';
+import { Product } from '../types/product';
 import Carrosel from '../components/carousel';
 import Sizebutton from '../components/sizebutton';
 import { Know } from '../components/getknow';
-import Cardsell from '../components/productcard';
+import CardSell from '../components/productcard';
 import { Footer } from '../components/footer';
 import { Navbar } from '../components/navbar';
 
-const Landing = () => {
+// Função para embaralhar a lista de produtos
+const shuffleArray = <T,>(array: T[]): T[] => {
+    let currentIndex = array.length, randomIndex;
 
-    <script src="../path/to/flowbite/dist/flowbite.min.js"async></script>
+    // Enquanto houver elementos a serem embaralhados...
+    while (currentIndex !== 0) {
+        // Escolha um elemento restante...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // E troque-o com o elemento atual.
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+};
+
+const Landing: FC = async () => {
+
+    <script src="../path/to/flowbite/dist/flowbite.min.js" async></script>
+
+    const products: Product[] = await fetchProducts();
+
+    if (products.length === 0) {
+        return <div className='text-blackcontent text-center'>Não foram encontrados produtos.</div>;
+    }
+
+    // Embaralhe a lista de produtos e selecione os primeiros 7 produtos
+    const shuffledProducts = shuffleArray(products);
+    const uniqueProducts = shuffledProducts.slice(0, 20);
 
     return (
         <>
@@ -68,10 +98,9 @@ const Landing = () => {
             {/* Inicio> grid de produtos e botão de mostrar mais produtos*/}
             <div className='flex justify-center items-center flex-col gap-12'>
                 <div className="grid max-sm:gap-1 sm:grid-cols-2 max-md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center max-w-5xl mt-12">
-                  
-                </div>
-                <div className=''>
-                    <a href=""> <button className='p-4 bg-pinks w-[250px] text-blackcontent rounded-2xl font-bold hover:scale-105 duration-300 hover:shadow-2xl hover:bg-pink-300'>Veja mais produtos...</button></a>
+                    {uniqueProducts.map((product) => (
+                        <CardSell key={product.id} product={product} />
+                    ))}
                 </div>
             </div>
             {/* Fim> grid de produtos e botão de mostrar mais produtos*/}
