@@ -77,7 +77,7 @@ const CardSell: FC<Props> = ({ product }) => {
             <path d="M67.0625 8.5C67.0625 5.43587 67.0625 3.90381 66.063 2.9519C65.0635 2 63.4548 2 60.2375 2H56.825C53.6077 2 51.999 2 50.9995 2.9519C50 3.90381 50 5.43587 50 8.5C50 11.5641 50 13.0962 50.9995 14.0481C51.999 15 53.6077 15 56.825 15H60.2375C63.4548 15 65.0635 15 66.063 14.0481C66.6202 13.5173 66.8668 12.8063 66.9759 11.75" stroke="#1F1F1F" strokeLinecap="round" strokeWidth="2" />
             <path d="M50 6.875H54.2656M67.0625 6.875H57.6781" stroke="#1F1F1F" strokeLinecap="round" strokeWidth="2" />
           </svg>
-          <p className='my-2 font-semibold mt-4 text-lg'>R$ {product.price}</p>
+          <p className='my-2 font-semibold mt-4 text-lg'>R$ {product.price.toFixed(2)}</p>
         </div>
       </Link>
     </div>

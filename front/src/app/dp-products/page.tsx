@@ -51,8 +51,8 @@ const ProductPage: FC = () => {
               <path d="M44.0643 7.53603C43.9151 7.09188 43.5306 6.76805 43.0677 6.69725L37.6804 5.87402L35.2605 0.719093C35.0542 0.2797 34.6132 0 34.1287 0C33.6439 0 33.2033 0.2797 32.9969 0.719093L30.5768 5.87434L25.1894 6.69757C24.7265 6.76837 24.3421 7.09188 24.1932 7.53635C24.0443 7.98082 24.1567 8.47038 24.484 8.80627L28.4182 12.8405L27.4864 18.5478C27.4096 19.0203 27.6099 19.4952 28.0007 19.7714C28.3912 20.0476 28.9068 20.0756 29.3268 19.8438L34.129 17.1881L38.9313 19.8438C39.1208 19.9486 39.3294 20 39.537 20C39.7897 20 40.0424 19.9232 40.2574 19.7714C40.6482 19.4955 40.8482 19.0206 40.7714 18.5478L39.8396 12.8405L43.7741 8.80627C44.1008 8.47038 44.2132 7.98082 44.0643 7.53603Z" fill="#E1CB00" />
             </svg>
 
-            <p className='font-bold text-xl my-4'>R$ {product.price}</p>
-
+            <p className='font-bold text-xl my-4'>R$ {product.price.toFixed(2)}</p>
+D
             {/* Consultar Frete */}
             <div className='flex items-center gap-2 mb-4'>
               <svg height="22" width="22" fill="none" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -63,8 +63,8 @@ const ProductPage: FC = () => {
             </div>
 
             <div className='max-sm:flex justify-center items-center'>
-              <button className='hover:scale-110 duration-300 my-8 border-2 border-blackcontent rounded-tl-[90px] h-[40px] rounded-tr-md rounded-bl-md rounded-br-[90px] '>
-                <a className='px-4 ' href={product.permalink} target="_blank" rel="noopener noreferrer">
+              <button className='hover:scale-110 duration-300 my-8 border-2 border-blackcontent rounded-tl-[90px] h-[50px] rounded-tr-md rounded-bl-md rounded-br-[90px] '>
+                <a className='px-8 font-bold' href={product.permalink} target="_blank" rel="noopener noreferrer">
                   Comprar agora
                 </a>
               </button>
