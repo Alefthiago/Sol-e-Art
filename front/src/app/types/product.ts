@@ -8,8 +8,4 @@ export interface Product {
     id: string;
     url: string;
   }>
-  attributes: Array<{
-    name: string;
-    value_name: string;
-  }>;
 }

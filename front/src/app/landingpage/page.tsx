@@ -10,6 +10,8 @@ import { Know } from '../components/getknow';
 import CardSell from '../components/productcard';
 import { Footer } from '../components/footer';
 import { Navbar } from '../components/navbar';
+import { ShopCar } from '../components/shop-car';
+
 
 // Função para embaralhar a lista de produtos
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -35,7 +37,9 @@ const Landing: FC = async () => {
     const products: Product[] = await fetchProducts();
 
     if (products.length === 0) {
-        return <div className='text-blackcontent text-center'>Não foram encontrados produtos.</div>;
+
+        return <div className=''><Navbar /> <div className='text-blackcontent h-screen flex items-center justify-center'>
+            Não foi possível carregar a API.</div></div>;
     }
 
     // Embaralhe a lista de produtos e selecione os primeiros 7 produtos
@@ -46,6 +50,7 @@ const Landing: FC = async () => {
         <>
             <Navbar />
             <Carrosel />
+            <ShopCar />
 
             {/* Inicio> icons de tipos de roupas*/}
             <div className='flex justify-center items-center gap-1 md:gap-28 mt-12'>

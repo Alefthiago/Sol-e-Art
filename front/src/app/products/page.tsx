@@ -2,52 +2,72 @@ import { FC } from 'react';
 import CardSell from '../components/productcard';
 import { fetchProducts } from '../../../lib/mercadoLibreAPI';
 import { Product } from '../types/product';
+import { Footer } from '../components/footer';
 import { Navbar } from '../components/navbar';
+import Link from 'next/link';
 
 // Função para embaralhar a lista de produtos
 const shuffleArray = <T,>(array: T[]): T[] => {
   let currentIndex = array.length, randomIndex;
 
-  // Enquanto houver elementos a serem embaralhados...
   while (currentIndex !== 0) {
-    // Escolha um elemento restante...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // E troque-o com o elemento atual.
     [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
 
   return array;
 };
 
-const ProductPage: FC = async () => {
-  const products: Product[] = await fetchProducts();
+interface ProductPageProps {
+  searchParams: { page?: string }; // Tipo dos parâmetros de busca
+}
+
+const ProductPage: FC<ProductPageProps> = async ({ searchParams }) => {
+  const currentPage = parseInt(searchParams.page || '1', 10);
+  const pageSize = 20; // Quantidade de itens por página
+
+  const allProducts: Product[] = await fetchProducts();
+  const shuffledProducts = shuffleArray(allProducts);
+
+  const totalPages = Math.ceil(shuffledProducts.length / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const products = shuffledProducts.slice(startIndex, endIndex);
 
   if (products.length === 0) {
-    return <div>Não foram encontrados produtos.</div>;
+    return <div className=''><Navbar /> <div className='text-blackcontent h-screen flex items-center justify-center'>
+      Não foram encontrados produtos.</div></div>;
   }
-
-  // Embaralhe a lista de produtos e selecione os primeiros 7 produtos
-  const shuffledProducts = shuffleArray(products);
-  const uniqueProducts = shuffledProducts.slice(0, 50);
 
   return (
     <div>
       <Navbar />
-      {/* Inicio> grid de produtos e botão de mostrar mais produtos*/}
       <div className='flex justify-center items-center flex-col gap-12'>
         <div className="grid max-sm:gap-1 sm:grid-cols-2 max-md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center max-w-5xl mt-12">
-          {uniqueProducts.map((product) => (
+          {products.map((product) => (
             <CardSell key={product.id} product={product} />
           ))}
         </div>
       </div>
-      {/* Fim> grid de produtos e botão de mostrar mais produtos*/}
-
+      {/* Navegação de Paginação */}
+      <div className="pagination text-blackcontent flex justify-center items-center my-20 gap-6">
+        {currentPage > 1 && (
+          <Link href={`?page=${currentPage - 1}`}>     
+              <p className='cursor-pointer hover:scale-110 hover:bg-pinks duration-300 rounded-xl bg-whitegray px-6 py-2 '>Anterior</p>
+          </Link>
+        )}
+        <span> Página {currentPage} de {totalPages} </span>
+        {currentPage < totalPages && (
+          <Link href={`?page=${currentPage + 1}`}>
+            <p className='cursor-pointer hover:scale-110 hover:bg-pinks duration-300 rounded-xl bg-whitegray px-6 py-2 '>Próximo</p>
+          </Link>
+        )}
+      </div>
+      <Footer/>
     </div>
   );
 };
 
 export default ProductPage;
-
