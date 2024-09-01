@@ -24,7 +24,8 @@ const config: Config = {
         blackcontent: '#1F1F1F',
         pinks: '#F6587A',
         whitegray: '#D9D9D9',
-        graycolor:'#2C2C2C'
+        graycolor:'#2C2C2C',
+        pinkw:'#FFE0E8'
         
       },
     },

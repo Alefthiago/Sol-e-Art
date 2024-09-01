@@ -6,9 +6,9 @@ import { Product } from '@/app/types/product';
 import { Carousel } from 'flowbite-react';
 import { Navbar } from '../components/navbar';
 import { Footer } from '../components/footer';
+import ProductShowcase from '../components/products-showcase';
 
 const ProductPage: FC = () => {
-
 
   <script src="../path/to/flowbite/dist/flowbite.min.js" async></script>
 
@@ -29,8 +29,8 @@ const ProductPage: FC = () => {
   return (
     <>
       <Navbar></Navbar>
-      <div className='flex justify-center items-center h-screen'>
-        <div className='max-sm:flex-col gap-12 border-4 border-gray-300 rounded-tl h-[500px] max-sm:h-[800px] w-[999px] rounded-tr-[90px] rounded-bl rounded-br-[90px] max-sm:w-[400px] max-sm:border-none text-blackcontent flex justify-center items-center'>
+      <div className='flex justify-center items-center my-36'>
+        <div className='max-sm:flex-col gap-12  rounded-tl h-[500px] max-sm:h-[800px] w-[999px] rounded-tr-[90px] rounded-bl rounded-br-[90px] max-sm:w-[400px] max-sm:border-none text-blackcontent flex justify-center items-center'>
           {/* Carousel dos produtos*/}
 
           <Carousel indicators={false} className='w-[400px]'>
@@ -52,7 +52,7 @@ const ProductPage: FC = () => {
             </svg>
 
             <p className='font-bold text-xl my-4'>R$ {product.price.toFixed(2)}</p>
-D
+
             {/* Consultar Frete */}
             <div className='flex items-center gap-2 mb-4'>
               <svg height="22" width="22" fill="none" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,11 @@ D
         </div>
       </div>
 
-      <Footer/>
+      {/*  */}
+      <h1 className='text-blackcontent font-semibold text-lg text-center mt-6'>Veja produtos similares...</h1>
+      <ProductShowcase quant={8} />
+
+      <Footer />
     </>
   );
 };
