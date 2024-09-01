@@ -55,13 +55,13 @@ const ProductPage: FC<ProductPageProps> = async ({ searchParams }) => {
       <div className="pagination text-blackcontent flex justify-center items-center my-20 gap-6">
         {currentPage > 1 && (
           <Link href={`?page=${currentPage - 1}`}>     
-              <p className='cursor-pointer hover:scale-110 hover:bg-pinks duration-300 rounded-xl bg-whitegray px-6 py-2 '>Anterior</p>
+              <p className='cursor-pointer hover:scale-110 hover:bg-pinks duration-300 rounded-xl bg-whitegray px-6 py-2 '>Anterior </p>
           </Link>
         )}
         <span> Página {currentPage} de {totalPages} </span>
         {currentPage < totalPages && (
           <Link href={`?page=${currentPage + 1}`}>
-            <p className='cursor-pointer hover:scale-110 hover:bg-pinks duration-300 rounded-xl bg-whitegray px-6 py-2 '>Próximo</p>
+            <p className='cursor-pointer hover:scale-110 hover:bg-pinks duration-300 rounded-xl bg-whitegray px-6 py-2 '>Próximo </p>
           </Link>
         )}
       </div>

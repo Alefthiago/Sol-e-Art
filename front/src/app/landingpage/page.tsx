@@ -10,7 +10,6 @@ import { Know } from '../components/getknow';
 import CardSell from '../components/productcard';
 import { Footer } from '../components/footer';
 import { Navbar } from '../components/navbar';
-import { ShopCar } from '../components/shop-car';
 
 
 // Função para embaralhar a lista de produtos
@@ -50,7 +49,6 @@ const Landing: FC = async () => {
         <>
             <Navbar />
             <Carrosel />
-            <ShopCar />
 
             {/* Inicio> icons de tipos de roupas*/}
             <div className='flex justify-center items-center gap-1 md:gap-28 mt-12'>
