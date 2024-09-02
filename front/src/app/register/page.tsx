@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const Register: React.FC = () => {
 
+  //funcao esconder e mostrar senhas
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
