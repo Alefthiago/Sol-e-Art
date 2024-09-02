@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
@@ -6,6 +7,8 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Firebase\JWT\JWT;
 use Firebase\JWT\KEY;
+
+use function PHPUnit\Framework\isEmpty;
 
 class Auth implements FilterInterface
 {
@@ -19,18 +22,29 @@ class Auth implements FilterInterface
 
     public function before(RequestInterface $request, $arguments = null)
     {
-        $authHeader = $request->getServer('HTTP_AUTHORIZATION');
-
-        if (!$authHeader) {
-            return $this->unauthorized('Token não informado.');
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+            die('ok');
         }
 
+        $authHeader = $request->getServer('HTTP_AUTHORIZATION');
+        // die(empty($authHeader) == 1);
+        // if (empty($authHeader)) {
+        //     return $this->unauthorized('Token não informado.');
+        // }
         // Extrai o token JWT do cabeçalho "Authorization: Bearer <token>"
         $token = null;
-        if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+
+        // die($authHeader);
+
+        if (!preg_match('/Bearer\s(\S+)/', $request->getServer('HTTP_AUTHORIZATION'), $matches)) {
             $token = $matches[1];
         }
 
+        die(json_encode(
+            array(
+                `msg` => $token
+            )
+        ));
         if (!$token) {
             return $this->unauthorized('Token não informado ou malformado.');
         }
