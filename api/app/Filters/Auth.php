@@ -16,45 +16,32 @@ class Auth implements FilterInterface
 
     public function __construct()
     {
-        // Idealmente, carregue a chave de um arquivo de configuração ou variável de ambiente
         $this->key = getenv('JWT_SECRET') ?: 'eogalo';
     }
 
     public function before(RequestInterface $request, $arguments = null)
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-            die('ok');
+    {   
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit();
         }
-
+    
         $authHeader = $request->getServer('HTTP_AUTHORIZATION');
-        // die(empty($authHeader) == 1);
-        // if (empty($authHeader)) {
-        //     return $this->unauthorized('Token não informado.');
-        // }
-        // Extrai o token JWT do cabeçalho "Authorization: Bearer <token>"
-        $token = null;
-
-        // die($authHeader);
-
-        if (!preg_match('/Bearer\s(\S+)/', $request->getServer('HTTP_AUTHORIZATION'), $matches)) {
-            $token = $matches[1];
-        }
-
-        die(json_encode(
-            array(
-                `msg` => $token
-            )
-        ));
-        if (!$token) {
+    
+        if (empty($authHeader) || count(explode('.', $authHeader)) < 3) {
             return $this->unauthorized('Token não informado ou malformado.');
         }
 
+        // $token = explode('.', $authHeader)[1];
+
         try {
-            JWT::decode($token, new KEY($this->key, 'HS256'));
+            JWT::decode($authHeader, new KEY($this->key, 'HS256'));
         } catch (\Exception $e) {
             return $this->unauthorized('Token inválido.');
         }
+    
     }
+    
 
     private function unauthorized($message)
     {
