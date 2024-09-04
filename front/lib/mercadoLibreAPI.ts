@@ -4,7 +4,7 @@ import { Product } from '@/app/types/product';
 // Jogas os produtos num array e mistura a cada requisição
 let productsCache: Product[] = [];
 
-export const fetchProducts = async (): Promise<Product[]> => {
+export const fetchBiquini = async (): Promise<Product[]> => {
   try {
     const response = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=biquini&limit=50');
     if (!response.ok) throw new Error('Failed to fetch products');

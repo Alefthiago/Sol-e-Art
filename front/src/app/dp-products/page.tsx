@@ -1,14 +1,23 @@
 "use client";
-import { useRouter, useSearchParams } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { FC, useEffect, useState, useContext } from 'react';
 import { fetchProductById } from '../../../lib/mercadoLibreAPI';
 import { Product } from '@/app/types/product';
 import { Carousel } from 'flowbite-react';
 import { Navbar } from '../components/navbar';
 import { Footer } from '../components/footer';
 import ProductShowcase from '../components/products-showcase';
+import { CartContext } from '../context/cartcontext';
 
 const ProductPage: FC = () => {
+
+  const cartContext = useContext(CartContext);
+  
+  const handleAddToCart = () => {
+    if (cartContext) {
+      cartContext.addToCart(product);
+    }
+  };
 
   <script src="../path/to/flowbite/dist/flowbite.min.js" async></script>
 
@@ -27,10 +36,10 @@ const ProductPage: FC = () => {
   }
 
   return (
-    <>
+    <div className='bg-white'>
       <Navbar></Navbar>
-      <div className='flex justify-center items-center my-36'>
-        <div className='max-sm:flex-col gap-12  rounded-tl h-[500px] max-sm:h-[800px] w-[999px] rounded-tr-[90px] rounded-bl rounded-br-[90px] max-sm:w-[400px] max-sm:border-none text-blackcontent flex justify-center items-center'>
+      <div className='flex justify-center items-center max-my-36 my-20'>
+        <div className='max-sm:flex-col gap-12 border-t-2 border-b-2 border-r-2 border-gray-200 rounded-tl-xl h-[500px] max-sm:h-[800px] w-[999px] rounded-tr-[90px] rounded-xl rounded-br-[90px] max-sm:w-[400px] max-sm:border-none text-blackcontent flex justify-center items-center'>
           {/* Carousel dos produtos*/}
 
           <Carousel indicators={false} className='w-[400px]'>
@@ -62,12 +71,21 @@ const ProductPage: FC = () => {
               <span className='text-gray-400 font-light text-sm'>Consulte o frete no anúncio principal</span>
             </div>
 
-            <div className='max-sm:flex justify-center items-center'>
-              <button className='hover:scale-110 duration-300 my-8 border-2 border-blackcontent rounded-tl-[90px] h-[50px] rounded-tr-md rounded-bl-md rounded-br-[90px] '>
+            <div className='flex justify-start items-center my-8 space-x-6'>
+              <button className='hover:scale-110 duration-300 border-2 border-blackcontent rounded-tl-[90px] h-[50px] rounded-tr-md rounded-bl-md rounded-br-[90px] '>
                 <a className='px-8 font-bold' href={product.permalink} target="_blank" rel="noopener noreferrer">
                   Comprar agora
                 </a>
               </button>
+              {/* Buttão de adicionar carrinho: */}
+              <button onClick={handleAddToCart} className='hover:scale-110 duration-300 border-2 border-blackcontent rounded-full w-[60px] h-[50px] '>
+                <div className='flex justify-center'>
+                  <svg height="22" width="22" fill="none" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 2.66667L14.3333 8.5H4.64726M15.1667 11.8333H5.16667L3.5 1H1M11.8333 3.08333H9.75M9.75 3.08333H7.66667M9.75 3.08333V5.16667M9.75 3.08333V1M6 15.1667C6 15.6269 5.6269 16 5.16667 16C4.70643 16 4.33333 15.6269 4.33333 15.1667C4.33333 14.7064 4.70643 14.3333 5.16667 14.3333C5.6269 14.3333 6 14.7064 6 15.1667ZM15.1667 15.1667C15.1667 15.6269 14.7936 16 14.3333 16C13.8731 16 13.5 15.6269 13.5 15.1667C13.5 14.7064 13.8731 14.3333 14.3333 14.3333C14.7936 14.3333 15.1667 14.7064 15.1667 15.1667Z" stroke="#1F1F1F" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+                  </svg>
+                </div>
+              </button>
+
             </div>
 
             {/* SVG Payments */}
@@ -101,13 +119,14 @@ const ProductPage: FC = () => {
       </div>
 
       {/*  */}
-      <h1 className='text-blackcontent font-semibold text-lg text-center mt-6'>Veja produtos similares...</h1>
+      <h1 className='text-blackcontent font-semibold text-lg text-center mt-24'>Veja produtos similares...</h1>
       <ProductShowcase quant={8} />
 
       <Footer />
-    </>
+    </div>
   );
 };
 
 export default ProductPage;
+
 

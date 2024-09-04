@@ -1,101 +1,13 @@
 "use client";
 
-import { Button, Modal } from "flowbite-react";
-import { useEffect, useState } from "react";
-
-// Tipos para os itens no carrinho
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import { Modal } from "flowbite-react";
+import { useState } from "react";
+import Cart from '../components/cart';
 
 export function ShopCar() {
   const [openModal, setOpenModal] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  // Carregar o carrinho do localStorage ao inicializar o componente
-  useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart));
-    }
-  }, []);
-
-  // Atualizar o localStorage sempre que o carrinho mudar
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-
-  //CODIGO ALEF 
-  // const clickModall = () => {
-  //   if (!localStorage.getItem('token')) {
-  //     return false;
-  //   } else {
-  //     let token = localStorage.getItem('token');
-
-  //     fetch("http://localhost:8000/userDelete", {
-  //       method: "POST",
-  //       body: 'asdsa',
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "AUTHORIZATION": `${token}`
-  //       }
-  //     })
-  //       .then((response) => response.json(
-
-  //       ))
-  //       .then((data) => {
-  //         if (data.type == `error`) {
-
-  //         } else {
-  //           alert("Login efetuado com sucesso! Seu token: " + data.token);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error("Erro:", error);
-  //       })
-  //       .finally(() => {
-  //       });
-  //   }
-  // }
-
-
-  const addItemToCart = (item: CartItem) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.id === item.id);
-      if (existingItem) {
-        // Se o item já existe, apenas incrementa a quantidade
-        return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      } else {
-        // Se o item é novo, adiciona ao carrinho
-        return [...prevItems, { ...item, quantity: 1 }];
-      }
-    });
-  };
-
-  // Função para remover um item do carrinho
-  const removeItemFromCart = (itemId: number) => {
-    setCartItems((prevItems) =>
-      prevItems
-        .map((item) =>
-          item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
-        )
-        .filter((item) => item.quantity > 0)
-    );
-  };
-
-  // Calcular o total do carrinho
-  const getTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-};
 
   return (
-
     <>
       <button
         className="cursor-pointer hover:scale-110 hover:lg:bg-pinks hover:md:bg-pinks transition ease-in-out rounded-xl"
@@ -123,46 +35,11 @@ export function ShopCar() {
           <span className="text-pinks text-xl font-bold">Meu Carrinho</span>
         </Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
-            {cartItems.length > 0 ? (
-              <ul>
-                {cartItems.map((item) => (
-                  <li key={item.id} className="flex justify-between items-center">
-                    <span>{item.name}</span>
-                    <div className="flex items-center">
-                      <Button
-                        className="bg-red-500 text-white mr-2"
-                        onClick={() => removeItemFromCart(item.id)}
-                      >
-                        -
-                      </Button>
-                      <span>{item.quantity}</span>
-                      <Button
-                        className="bg-green-500 text-white ml-2"
-                        onClick={() => addItemToCart(item)}
-                      >
-                        +
-                      </Button>
-                    </div>
-                    <span>${(item.price * item.quantity).toFixed(2)}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                Seu carrinho está vazio.
-              </p>
-            )}
-            <div className="flex justify-between font-bold text-lg">
-              <span>Total:</span>
-              <span>${getTotalPrice()}</span>
-            </div>
-            <Button
-              className="w-full bg-pinks hover:bg-pinks-dark text-white font-semibold py-2 px-4 rounded-lg"
-              onClick={() => setOpenModal(false)}
-            >
+          <Cart />
+          <div className="flex justify-center">
+            <button className="bg-pinks hover:bg-pinks-dark text-white font-semibold py-2 px-4 rounded-lg w-[300px]" onClick={() => setOpenModal(false)}>
               Continuar Comprando
-            </Button>
+            </button>
           </div>
         </Modal.Body>
       </Modal>

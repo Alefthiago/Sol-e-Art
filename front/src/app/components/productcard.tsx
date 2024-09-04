@@ -1,16 +1,25 @@
-import { FC } from 'react';
+"use client"
+import { FC, useContext } from 'react';
 import Link from 'next/link';
 import { Product } from '../types/product';
+import { CartContext } from '../context/cartcontext';
 
 interface Props {
   product: Product | undefined;
 }
 
 const CardSell: FC<Props> = ({ product }) => {
+  const cartContext = useContext(CartContext);
   if (!product) return <div>Produto não disponível</div>;
 
+  const handleAddToCart = () => {
+    if (cartContext) {
+      cartContext.addToCart(product);
+    }
+  };
+
   return (
-    <div className='border-2 border-gray-200 rounded-xl w-[190px] h-[400px] max-w-[190px] hover:scale-105 hover:shadow-2xl duration-300 text-center text-black bg-white'>
+    <div className='border-2 border-gray-200 rounded-xl w-[190px] h-[430px] max-w-[190px] hover:scale-105 hover:shadow-2xl duration-300 text-center text-black bg-white'>
       <Link href={`/dp-products?id=${product.id}`} passHref>
         <div className='h-[170px] flex justify-center'>
           <img className='h-[160px]' src={product.thumbnail} alt={product.title} />
@@ -80,6 +89,18 @@ const CardSell: FC<Props> = ({ product }) => {
           <p className='my-2 font-semibold mt-4 text-lg'>R$ {product.price.toFixed(2)}</p>
         </div>
       </Link>
+
+      {/* Botão para colocar produto no carrinho */}
+      <button
+        onClick={handleAddToCart}
+        className='hover:scale-110 duration-300 border-[1px] border-blackcontent rounded-full w-[70px] h-[30px]'
+      >
+        <div className='flex justify-center'>
+          <svg height="17" width="17" fill="none" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2.66667L14.3333 8.5H4.64726M15.1667 11.8333H5.16667L3.5 1H1M11.8333 3.08333H9.75M9.75 3.08333H7.66667M9.75 3.08333V5.16667M9.75 3.08333V1M6 15.1667C6 15.6269 5.6269 16 5.16667 16C4.70643 16 4.33333 15.6269 4.33333 15.1667C4.33333 14.7064 4.70643 14.3333 5.16667 14.3333C5.6269 14.3333 6 14.7064 6 15.1667ZM15.1667 15.1667C15.1667 15.6269 14.7936 16 14.3333 16C13.8731 16 13.5 15.6269 13.5 15.1667C13.5 14.7064 13.8731 14.3333 14.3333 14.3333C14.7936 14.3333 15.1667 14.7064 15.1667 15.1667Z" stroke="#1F1F1F" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+          </svg>
+        </div>
+      </button>
     </div>
   );
 };

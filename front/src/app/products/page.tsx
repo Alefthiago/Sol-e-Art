@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import CardSell from '../components/productcard';
-import { fetchProducts } from '../../../lib/mercadoLibreAPI';
+import { fetchBiquini, fetchSunga } from '../../../lib/mercadoLibreAPI';
 import { Product } from '../types/product';
 import { Footer } from '../components/footer';
 import { Navbar } from '../components/navbar';
@@ -20,15 +20,18 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return array;
 };
 
+// Func para paginar e continuação de Sufflearray
 interface ProductPageProps {
   searchParams: { page?: string }; // Tipo dos parâmetros de busca
 }
-
 const ProductPage: FC<ProductPageProps> = async ({ searchParams }) => {
-  const currentPage = parseInt(searchParams.page || '1', 10);
+  const currentPage = parseInt(searchParams.page || '1');
   const pageSize = 20; // Quantidade de itens por página
 
-  const allProducts: Product[] = await fetchProducts();
+
+  const allProductsBiquini: Product[] = await fetchBiquini();
+  const allProductsSunga: Product[] = await fetchSunga();
+  const allProducts = allProductsBiquini.concat(allProductsSunga)
   const shuffledProducts = shuffleArray(allProducts);
 
   const totalPages = Math.ceil(shuffledProducts.length / pageSize);
@@ -44,6 +47,7 @@ const ProductPage: FC<ProductPageProps> = async ({ searchParams }) => {
   return (
     <div>
       <Navbar />
+      <p className='text-blackcontent font-semibold text-lg text-center mt-24'>Nossos Produtos</p>
       <div className='flex justify-center items-center flex-col gap-12'>
         <div className="grid max-sm:gap-1 sm:grid-cols-2 max-md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center max-w-5xl mt-12">
           {products.map((product) => (

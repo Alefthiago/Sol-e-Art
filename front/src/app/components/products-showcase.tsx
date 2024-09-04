@@ -1,7 +1,9 @@
+//tela com produtos (vc escolhe na chamada a quantidade de produtos a ser exubidos).
+
 "use client";
 import React, { useState, useEffect } from 'react';
 import { FC } from 'react';
-import { fetchProducts } from '../../../lib/mercadoLibreAPI';
+import { fetchBiquini, fetchSunga } from '../../../lib/mercadoLibreAPI';
 import { Product } from '../types/product';
 import CardSell from '../components/productcard';
 
@@ -29,47 +31,51 @@ export const shuffleArray = <T,>(array: T[]): T[] => {
 const ProductShowcase: FC<ProductShowcaseProps> = ({ quant }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchAndSetProducts = async () => {
       try {
-        const data: Product[] = await fetchProducts();
-        setProducts(data);
-      } catch (error) {
-        setError('Não foi possível carregar os produtos.');
+        // Busca produtos de ambas as fontes
+        const [biquiniProducts, sungaProducts]: [Product[], Product[]] = await Promise.all([
+          fetchBiquini(),
+          fetchSunga()
+        ]);
+
+        // Combina os arrays de produtos
+        const combinedProducts = [...biquiniProducts, ...sungaProducts];
+        
+        setProducts(combinedProducts);
       } finally {
         setLoading(false);
       }
     };
 
     fetchAndSetProducts();
-  }, []);
+  }, []); // Dependências de useEffect são vazias, então ele roda apenas na montagem
+
+  if (loading) {
+    return <div>Carregando...</div>; // Mensagem de carregamento
+  }
 
   // Embaralhe a lista de produtos e selecione os primeiros `quant` produtos
   const shuffledProducts = shuffleArray(products);
   const uniqueProducts = shuffledProducts.slice(0, quant);
 
   return (
-    <>
-      
-      {/* Inicio> grid de produtos e botão de mostrar mais produtos */}
-      
-      <div className='flex justify-center items-center flex-col gap-12'>
-        <div className="grid max-sm:gap-1 sm:grid-cols-2 max-md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center max-w-5xl mt-12">
-          {uniqueProducts.map((product) => (
-            <CardSell key={product.id} product={product} />
-          ))}
-        </div>
-        <div>
-          <button className='bg-pinks p-4 px-6 text-blackcontent rounded-2xl hover:scale-105 duration-300 hover:bg-pink-300'>
-            <a className='font-bold' href="/products">Veja mais Produtos</a>
-          </button>
-        </div>
+    <div className='flex justify-center items-center flex-col gap-12'>
+      <div className="grid max-sm:gap-1 sm:grid-cols-2 max-md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center max-w-5xl mt-12">
+        {uniqueProducts.map((product) => (
+          <CardSell key={product.id} product={product} />
+        ))}
       </div>
-      {/* Fim> grid de produtos e botão de mostrar mais produtos */}
-    </>
+      <div>
+        <button className='bg-pinks p-4 px-6 text-blackcontent rounded-2xl hover:scale-105 duration-300 hover:bg-pink-300'>
+          <a className='font-bold' href="/products">Veja mais Produtos</a>
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default ProductShowcase;
+
