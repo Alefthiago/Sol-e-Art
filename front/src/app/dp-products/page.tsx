@@ -8,11 +8,12 @@ import { Navbar } from '../components/navbar';
 import { Footer } from '../components/footer';
 import ProductShowcase from '../components/products-showcase';
 import { CartContext } from '../context/cartcontext';
+import CardFeedback from '../components/feedbacks';
 
 const ProductPage: FC = () => {
 
   const cartContext = useContext(CartContext);
-  
+
   const handleAddToCart = () => {
     if (cartContext) {
       cartContext.addToCart(product);
@@ -121,6 +122,10 @@ const ProductPage: FC = () => {
       {/*  */}
       <h1 className='text-blackcontent font-semibold text-lg text-center mt-24'>Veja produtos similares...</h1>
       <ProductShowcase quant={8} />
+
+      <div className='mt-28'>
+        <CardFeedback />
+      </div>
 
       <Footer />
     </div>
