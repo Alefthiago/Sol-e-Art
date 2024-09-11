@@ -1,8 +1,7 @@
-// context/CartContext.tsx
+// Carrinho contexto
 "use client"
-import React, { createContext, useState, FC, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, FC, ReactNode } from 'react';
 import { Product } from '../types/product';
-
 
 interface CartItem extends Product {
   quantity: number;
@@ -17,7 +16,21 @@ interface CartContextType {
 export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  // procura itens no local atual
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    }
+    return [];
+  });
+
+  // efeito para salvar item no carrinho no reload
+  useEffect(() => {
+    if (cart.length > 0) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const addToCart = (product: Product) => {
     setCart(prevCart => {

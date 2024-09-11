@@ -112,7 +112,7 @@ const Register: React.FC = () => {
           setErrors((prevState: any) => [...prevState, ...newErrors]);
         } else {
           // localStorage.setItem("token", data.token);
-          window.location.href = "/screenlogin";
+          window.location.href = "/login";
         }
       })
       .catch((error) => {
@@ -251,7 +251,7 @@ const Register: React.FC = () => {
               </div>
             </form>
 
-            <a href='/screenlogin' className='text-blackcontent underline hover:text-gray-400 mb-12'>Já tem uma conta?</a>
+            <a href='/login' className='text-blackcontent underline hover:text-gray-400 mb-12'>Já tem uma conta?</a>
 
           </div>
         </div>
