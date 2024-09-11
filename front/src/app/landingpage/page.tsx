@@ -1,4 +1,4 @@
-"use client";
+
 import 'animate.css';
 import React from 'react'
 import { FC } from 'react';
