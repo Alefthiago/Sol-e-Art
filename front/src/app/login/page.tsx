@@ -52,7 +52,8 @@ const LoginPage = () => {
           setErrors((prevState: any) => [...prevState, ...newErrors]);
         } else {
           localStorage.setItem("token", data.token);
-          alert("Login efetuado com sucesso! Seu token: " + data.token);
+          // alert("Login efetuado com sucesso! Seu token: " + data.token);
+          window.location.href = "/landingpage";
         }
       })
       .catch((error) => {

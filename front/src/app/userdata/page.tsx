@@ -22,13 +22,13 @@ const UserData = () => {
                 <p className='text-blackcontent text-center font-bold text-xl'>Visualizar Conta</p>
                 <div className='flex flex-col'>
                     <span className='text-gray-400 font-light ml-1'>Email</span>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink ' type="email" id='email' name='email' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink' type="email" id='email' name='email' />
                     <span className='text-gray-400 font-light ml-1'>Nome</span>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink ' type="text" id='name' name='name' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink' type="text" id='name' name='name' />
                     <span className='text-gray-400 font-light ml-1'>Cep</span>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink ' type="text" id='cep' name='cep' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink' type="text" id='cep' name='cep' />
                     <span className='text-gray-400 font-light ml-1'>Número</span>
-                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink ' type="text" id='number' name='number' />
+                    <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray mb-2 focus-within:ring-pink' type="text" id='number' name='number' />
                     <span className='text-gray-400 font-light ml-1'>Senha</span>
                     <div className='flex'>
                         <input className='focus:border-pinks border-none rounded-xl text-blackcontent bg-whitegray my-2 focus-within:ring-pinks' type={showPassword ? "text" : "password"} id='password' name='password' />
@@ -43,11 +43,6 @@ const UserData = () => {
                                 </svg>
                             )}
                         </button>
-                    </div>
-
-                    <div className='flex justify-center mt-10 mb-20'>
-                        <button className='py-3 px-12 bg-pinks text-blackcontent font-bold rounded-3xl cursor-pointer hover:bg-pink-300'> Logout </button>
-                        {/* <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" /> */}
                     </div>
 
                     <Know></Know>
